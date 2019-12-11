@@ -138,7 +138,7 @@ class BtsModel(object):
 		pixel_vector = self.get_pixel_normalized(upratio)
 		dem = tf.reduce_sum(plane_normal*pixel_vector, axis=3, keepdims=True)
 		depth = plane_dist / dem * tf.sqrt(tf.reduce_sum(pixel_vector**2, axis=3, keepdims=True))
-		depth = tf.abs(depth)
+		#depth = tf.abs(depth)
 		return plane_eq, depth
 		
 	
