@@ -129,7 +129,9 @@ class BtsModel(object):
 		return conv
 
 	def compute_depth(self, plane_eq, upratio):
-		plane = self.upsample_nn(plane_eq, upratio)
+		#plane = self.upsample_nn(plane_eq, upratio)
+		plane = tf.concat([plane_eq]*upratio, axis=1)
+		plane = tf.concat([plane]*upratio, axis=2)
 		plane_normal = tf.nn.l2_normalize(plane[:, :, :, 0:3], axis=3)
 		plane_dist = plane[:, :, :, 3:4]
 		plane_eq = tf.concat([plane_normal, plane_dist], 3)
