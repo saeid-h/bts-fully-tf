@@ -65,7 +65,7 @@ class BtsModel(object):
 	def find_uv(self):
 		h = self.params.height
 		w = self.params.width
-		self.u, self.v = tf.meshgrid(np.linspace(0, w-1, w, dtype=np.float32), np.linspace(0, h-1, h, dtype=np.float32)) 
+		self.v, self.u = tf.meshgrid(np.linspace(0, w-1, w, dtype=np.float32), np.linspace(0, h-1, h, dtype=np.float32)) 
 
 	def get_pixel_normalized(self, ratio):
 		if not ratio in self.pixel_normalized.keys():
