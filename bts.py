@@ -132,7 +132,8 @@ class BtsModel(object):
 		#plane = self.upsample_nn(plane_eq, upratio)
 		#plane = tf.concat([plane_eq]*upratio, axis=1)
 		#plane = tf.concat([plane]*upratio, axis=2)
-		b = self.params.batch_size; c = 4
+		b = 1 if self.params.batch_size is None else self.params.batch_size 
+		c = 4
 		plane = tf.reshape(plane_eq, [b, -1, 1, c])
 		plane = tf.concat([plane]*upratio, 2)
 		plane = tf.reshape(plane, [b, self.params.height//upratio, -1, c])
