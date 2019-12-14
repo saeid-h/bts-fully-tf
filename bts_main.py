@@ -179,6 +179,8 @@ def train(params):
                                       trainable_vars if ('dense_block1' or 'transition_block1') not in var.name]
                     else:
                         g_vars = None
+                        
+                    total_opt = opt_step.minimize(loss, global_step=global_step, name="adam_opt_loss", var_list=g_vars)
                     
                     
         with tf.variable_scope(tf.get_variable_scope()):
