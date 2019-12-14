@@ -65,14 +65,17 @@ class BtsModel(object):
 	def find_uv(self):
 		h = self.params.height
 		w = self.params.width
-		self.v, self.u = tf.meshgrid(np.linspace(0, w-1, w, dtype=np.float32), np.linspace(0, h-1, h, dtype=np.float32)) 
+		v, u = tf.meshgrid(np.linspace(0, w-1, w, dtype=np.float32), np.linspace(0, h-1, h, dtype=np.float32)) 
+		v = tf.concat([tf.expand_dims(v, 0)]*self.params.batch_size, 0)
+		u = tf.concat([tf.expand_dims(u, 0)]*self.params.batch_size, 0)
+		self.u = tf.expand_dims(u, -1)
+		self.v = tf.expand_dims(v, -1)
+		self.focal = tf.reshape(self.focal, [self.params.batch_size, 1, 1, 1])
 
 	def get_pixel_normalized(self, ratio):
 		if not ratio in self.pixel_normalized.keys():
 			u = (self.u % ratio - (ratio - 1)/2) / self.focal
 			v = (self.v % ratio - (ratio - 1)/2) / self.focal
-			u = tf.expand_dims(tf.expand_dims(u, -1), 0) 
-			v = tf.expand_dims(tf.expand_dims(v, -1), 0) 
 			self.pixel_normalized.update({ratio: tf.concat([u, v, tf.ones_like(u)], 3)})
 		return self.pixel_normalized[ratio]
 

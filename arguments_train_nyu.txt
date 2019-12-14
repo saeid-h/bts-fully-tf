@@ -2,8 +2,8 @@
 --model_name bts_nyu_test
 --encoder densenet161_bts
 --dataset nyu
---data_path ../dataset/nyu_depth_v2/sync/
---gt_path ../dataset/nyu_depth_v2/sync/
+--data_path dataset/nyu_depth_v2/sync/
+--gt_path dataset/nyu_depth_v2/sync/
 --filenames_file ./train_test_inputs/nyudepthv2_train_files_with_gt.txt
 --batch_size 4
 --num_epochs 50
