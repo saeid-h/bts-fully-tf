@@ -64,6 +64,7 @@ Then, download the dataset we used in this work.
 ```
 $ cd ~/workspace/bts
 $ python utils/download_from_gdrive.py 1AysroWpfISmm-yRFGBgFTrLy6FjQwvwP ../dataset/nyu_depth_v2/sync.zip
+$ cd ../dataset/nyu_depth_v2
 $ unzip sync.zip
 ```
 
