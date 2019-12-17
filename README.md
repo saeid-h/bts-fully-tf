@@ -22,7 +22,7 @@ $ python extract_official_train_test_set_from_mat.py nyu_depth_v2_labeled.mat sp
 $ cd ..
 $ mkdir models
 # Get BTS model trained with NYU Depth V2
-$ python utils/download_from_gdrive.py 1ipme-fkV4pIx87sOs31R9CD_Qg-85__h models/bts_nyu.zip
+$ python utils/download_from_gdrive.py 1KgLFgZa9U4X7Kq1_U908idFo_GBfu04d models/bts_nyu.zip
 $ cd models
 $ unzip bts_nyu.zip
 ```
@@ -47,7 +47,7 @@ GT files reading done
 0 GT files missing
 Computing errors
      d1,      d2,      d3,  AbsRel,   SqRel,    RMSE, RMSElog,   SILog,   log10
-  0.882,   0.980,   0.996,   0.111,   0.060,   0.356,   0.141,  11.268,   0.047
+  0.880,   0.978,   0.996,   0.113,   0.060,   0.356,   0.142,  11.333,   0.048
 Done.
 ```
 
