@@ -63,14 +63,15 @@ class BtsModel(object):
 		self.build_summaries()
 
 	def find_uv(self):
+		b = 1 if self.params.batch_size is None else self.params.batch_size
 		h = self.params.height
 		w = self.params.width
 		v, u = tf.meshgrid(np.linspace(0, w-1, w, dtype=np.float32), np.linspace(0, h-1, h, dtype=np.float32)) 
-		v = tf.concat([tf.expand_dims(v, 0)]*self.params.batch_size, 0)
-		u = tf.concat([tf.expand_dims(u, 0)]*self.params.batch_size, 0)
+		v = tf.concat([tf.expand_dims(v, 0)]*b, 0)
+		u = tf.concat([tf.expand_dims(u, 0)]*b, 0)
 		self.u = tf.expand_dims(u, -1)
 		self.v = tf.expand_dims(v, -1)
-		self.focal = tf.reshape(self.focal, [self.params.batch_size, 1, 1, 1])
+		self.focal = tf.reshape(self.focal, [-1, 1, 1, 1])
 
 	def get_pixel_normalized(self, ratio):
 		if not ratio in self.pixel_normalized.keys():
@@ -132,9 +133,6 @@ class BtsModel(object):
 		return conv
 
 	def compute_depth(self, plane_eq, upratio):
-		#plane = self.upsample_nn(plane_eq, upratio)
-		#plane = tf.concat([plane_eq]*upratio, axis=1)
-		#plane = tf.concat([plane]*upratio, axis=2)
 		b = 1 if self.params.batch_size is None else self.params.batch_size 
 		c = 4
 		plane = tf.reshape(plane_eq, [b, -1, 1, c])
@@ -149,7 +147,6 @@ class BtsModel(object):
 		pixel_vector = self.get_pixel_normalized(upratio)
 		dem = tf.reduce_sum(plane_normal*pixel_vector, axis=3, keepdims=True)
 		depth = plane_dist / dem * tf.sqrt(tf.reduce_sum(pixel_vector**2, axis=3, keepdims=True))
-		#depth = tf.abs(depth)
 		return plane_eq, depth
 		
 	
